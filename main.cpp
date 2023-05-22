@@ -15,7 +15,8 @@ class Storage {
 public:
     Storage(int usize) { // Выделить память + рандомно заполнить + сказать сколько занято под него и все хранилища
         size = usize;
-        Storage::usedMemory += 4*size;
+        int used = size * sizeof(int);
+        Storage::usedMemory += used;
         arr = new int[size];
 
         for (int i = 0; i < size; i++) {
@@ -43,13 +44,14 @@ public:
 
     ~Storage()
     {
+        int used = size * sizeof(int);
         if (arr)
         {
             delete[]arr;
         }
-        Storage::usedMemory -= size * 4;
+        Storage::usedMemory -= used;
 
-        cout << "Очищено " << 4*size << " байт памяти\n";
+        cout << "Очищено " << used << " байт памяти\n";
         
         cout << "Осталось "<< getMemory()<<" байт памяти. "  << endl << endl;
     }
